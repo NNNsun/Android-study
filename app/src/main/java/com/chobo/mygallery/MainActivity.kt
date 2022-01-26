@@ -1,5 +1,6 @@
 package com.chobo.mygallery
 
+import MyPagerAdapter
 import android.Manifest
 import android.content.ContentUris
 import android.content.pm.PackageManager
@@ -13,7 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.chobo.mygallery.databinding.ActivityMainBinding
-import layout.MyPagerAdapter
+
 import kotlin.concurrent.timer
 
 
@@ -26,13 +27,14 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getAllPhotos(){
         var uris= mutableListOf<Uri>()
+
         //모든 사진 정보 가져오기
-        contentResolver.query(
+        val cursor = contentResolver.query(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             null,
             null,
             null,
-            "${MediaStore.Images.ImageColumns.DATE_TAKEN} DESC"//찍은 날짜 내림차순
+            MediaStore.Images.ImageColumns.DATE_TAKEN+ "DESC"//찍은 날짜 내림차순
 
             )?.use { cursor->
             while(cursor.moveToNext()){
@@ -57,10 +59,10 @@ class MainActivity : AppCompatActivity() {
 
         timer(period=3000){
             runOnUiThread{
-                if(viewPager.currentItem<adapter.count-1){
-                    viewPager.currentItem=viewPager.currentItem+1
+                if(binding.viewPager.currentItem<adapter.itemCount-1){
+                    binding.viewPager.currentItem=binding.viewPager.currentItem+1
                 }else{
-                    viewPager.currentItem=0
+                    binding.viewPager.currentItem=0
                 }
             }
         }

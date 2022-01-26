@@ -1,5 +1,3 @@
-package layout
-
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,6 +9,7 @@ class MyPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
     //뷰페이지가 표시할 프래그먼트 목록
     var uris = mutableListOf<Uri>()
+
     //표시할 프래그먼트의 개수
     override fun getItemCount(): Int {
         return uris.size
@@ -18,6 +17,6 @@ class MyPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
 
     //position 위치의 프래그먼트
     override fun createFragment(position: Int): Fragment {
-       return PhotoFragment.newInstance(uris[position])
+       return PhotoFragment.newInstance(uris[position].toString())
     }
 }

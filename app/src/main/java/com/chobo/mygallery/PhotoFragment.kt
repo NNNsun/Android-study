@@ -1,11 +1,14 @@
 package com.chobo.mygallery
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import coil.load
 
 
 private const val ARG_URI="uri"
@@ -25,12 +28,24 @@ class PhotoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_photo_pragment, container, false)
+        return inflater.inflate(R.layout.fragment_photo , container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val imageView = view.findViewById<ImageView>(R.id.imageView)
+        val descriptor = requireContext().contentResolver.openFileDescriptor(uri,"r")
+        descriptor?.use {
+            val bitmap=
+                BitmapFactory.decodeFileDescriptor(descriptor.fileDescriptor)
+            imageView.load(bitmap)
+        }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(uri: Uri) =
+        fun newInstance(uri: String) =
             PhotoFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_URI, uri)
