@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "818065048580",
+    "project_id": "chattingapp-1d2cc",
+    "storage_bucket": "chattingapp-1d2cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818065048580:android:ca8772d905d6d175906151",
+        "android_client_info": {
+          "package_name": "com.chobo.chattingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818065048580-c8qoan3dm1c84q9rvv76gcuk59vp9du8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVEX-gOmnItZlDPUwHoWC4XPRFlyfiGEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818065048580-c8qoan3dm1c84q9rvv76gcuk59vp9du8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
