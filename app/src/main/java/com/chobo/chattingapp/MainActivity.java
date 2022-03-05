@@ -1,5 +1,6 @@
 package com.chobo.chattingapp;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     static String ProviderId;
      private static final String TAG = "MainActivity";
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth=null;
+    private ActivityResultLauncher<Intent> resultLauncher;
+
     // Configure Google Sign In
     GoogleSignInOptions gso = new GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
         //클릭 이벤트
         btnLogin.setOnClickListener((v)->  {
+            String stEmail = etId.getText().toString();
+            String stPassword = etPassword.getText().toString();
                 //Toast.makeText(MainActivity.this, "Login", Toast.LENGTH_LONG).show();
                 //괄호안에 목적지를 적어준다
                 //화면전환 기능
@@ -77,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -94,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
